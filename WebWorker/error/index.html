@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>WebWorker</title>
+</head>
+<body>
+<div id="result"></div>
+<script>
+    // index
+    var worker = new Worker('main.js');
+    // 监听事件
+    worker.onmessage = function (e) {
+        console.log('index: ', '我接收到了', e.data);
+    };
+    // 监听错误
+    worker.onerror = function (e) {
+        console.log('ERROR', 'filename:' + e.filename + '---message:' + e.message + '---lineno:' + e.lineno);
+    };
+    // 触发事件，传递信息给 Worker
+    worker.postMessage('Hello Worker, I am index.html');
+</script>
+</body>
+</html>
